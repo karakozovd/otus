@@ -3,26 +3,28 @@ cmake_minimum_required(VERSION 3.12)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
-project(ip_filter VERSION ${PROJECT_VESRION})
+project(allocator VERSION ${PROJECT_VESRION})
 
 configure_file(version.h.in version.h)
 
-add_executable(ip_filter ip_filter.cpp)
+add_executable(allocator allocator.h
+                         container.h
+			 main.cpp)
 
-set_target_properties(ip_filter PROPERTIES
+set_target_properties(allocator PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
 
-target_include_directories(ip_filter
+target_include_directories(allocator
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
-target_compile_options(ip_filter PRIVATE
+target_compile_options(allocator PRIVATE
     -Wall -Wextra -pedantic -Werror
 )
 
-install(TARGETS ip_filter RUNTIME DESTINATION bin)
+install(TARGETS allocator RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
