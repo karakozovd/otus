@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
         data.blockSize = vm["blocksize"].as<int>();
 
     if (vm.count("hash"))
-        data.hash = bayan::fromString(vm["hash"].as<std::string>());
+        data.hash = bayan::hashFromString(vm["hash"].as<std::string>());
 
     if (vm.count("files"))
         data.files = vm["files"].as<std::vector<std::string>>();

@@ -8,9 +8,9 @@
 #include <boost/crc.hpp>
 #include <boost/filesystem.hpp>
 
-using namespace bayan;
+namespace bayan {
 
-Type fromString(const std::string &str)
+Type hashFromString(const std::string &str)
 {
     Type res = Type::CRC32;
     if (str == "crc32" || str == "CRC32") {
@@ -22,7 +22,7 @@ Type fromString(const std::string &str)
     return res;
 }
 
-std::string toString(const Type &type, const char *data, size_t len)
+std::string hashToString(const Type &type, const char *data, size_t len)
 {
     switch (type) {
     case Type::SHA1: {
@@ -86,12 +86,14 @@ bool isSame(const InputData &data)
             }
 
             switch (data.hash) {
-            case Type::CRC32:
-                curHash = toString(Type::CRC32, buf.data(), buf.size());
-                break;
-            case Type::SHA1:
-                curHash = toString(Type::SHA1, buf.data(), buf.size());
-                break;
+            case Type::CRC32: {
+                auto type = Type::CRC32;
+                curHash = hashToString(type, buf.data(), buf.size());
+            } break;
+            case Type::SHA1: {
+                auto type = Type::SHA1;
+                curHash = hashToString(type, buf.data(), buf.size());
+            } break;
             }
 
             if (j == 0) {
@@ -105,4 +107,6 @@ bool isSame(const InputData &data)
     }
 
     return true;
+}
+
 }

@@ -7,8 +7,8 @@ enum class Type {
     CRC32
 };
 
-Type fromString(const std::string &str);
-std::string toString(const Type &type, const char *data, size_t len);
+Type hashFromString(const std::string &str);
+std::string hashToString(const Type &type, const char *data, size_t len);
 
 struct InputData {
     std::vector<std::string> files;
